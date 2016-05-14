@@ -12,7 +12,8 @@ request.get('http://api.bart.gov/api/etd.aspx?cmd=etd&orig=embr&key=MW9S-E7SL-26
           //console.log(util.inspect(result, false, null))
           obj = JSON.parse(JSON.stringify(result));
 
-          console.log('departing from station:'+obj.root.station[0].name);
+          console.log('current time: '+obj.root.time);
+          console.log('departing from station: '+obj.root.station[0].name);
           /*
           console.log('destination 1: '+obj.root.station[0].etd[0].destination);
           console.log('destination 2: '+obj.root.station[0].etd[1].destination);
@@ -22,10 +23,21 @@ request.get('http://api.bart.gov/api/etd.aspx?cmd=etd&orig=embr&key=MW9S-E7SL-26
           //console.log(JSON.stringify(result, {indent: true}));
         });
 
+
         obj.root.station[0].etd.forEach(getDestination);
+
     }
 });
 
 function getDestination(element, index, array) {
-    console.log(element.destination);
+    console.log('destination: '+element.destination);
+    element.estimate.forEach(getEstimateMins);
+
+}
+
+function getEstimateMins(element, index, array) {
+    if (element.minutes == 'Leaving') {
+      element.minutes == 0;
+    }
+    console.log('leaving in '+element.minutes+ ' mins');
 }
