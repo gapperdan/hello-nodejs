@@ -7,8 +7,6 @@ node helloworld.js
 ```
 
 ## Sample code to call a rest client
-request_sample.js
-
 ### Requires request package
 ```
 npm install request
